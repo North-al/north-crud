@@ -1,14 +1,12 @@
 <template>
     <el-button @click="fetchList" :loading="loading">加载数据</el-button>
-    <el-table :data="tableData" style="width: 100%; margin-top: 20px">
-        <el-table-column prop="id" label="ID" />
-        <el-table-column prop="name" label="名称" />
-    </el-table>
+    <CrudTable :columns="columns" :data="tableData" :loading="loading" />
 </template>
 
 <script setup lang="ts">
-    import { useCrud } from '@core'
     import { ref } from 'vue'
+    import { useCrud } from '@north/crud-core'
+    import { CrudTable } from '@north/crud-element-plus'
 
     // 模拟接口
     const api = () => {
@@ -21,6 +19,11 @@
             }, 1000)
         })
     }
+
+    const columns = ref([
+        { label: 'ID', prop: 'id', width: 80 },
+        { label: '姓名', prop: 'name' }
+    ])
 
     const { tableData, loading, fetchList } = useCrud({ api })
 </script>

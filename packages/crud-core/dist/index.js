@@ -20,11 +20,33 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.ts
 var index_exports = {};
 __export(index_exports, {
-  hello: () => hello
+  useCrud: () => useCrud
 });
 module.exports = __toCommonJS(index_exports);
-var hello = () => "Hello from crud-core!";
+
+// src/composables/useCrud.ts
+var import_vue = require("vue");
+function useCrud(options) {
+  const tableData = (0, import_vue.ref)([]);
+  const loading = (0, import_vue.ref)(false);
+  const fetchList = async () => {
+    loading.value = true;
+    try {
+      const res = await options.api();
+      tableData.value = res;
+    } catch (err) {
+      console.error("fetchList error:", err);
+    } finally {
+      loading.value = false;
+    }
+  };
+  return {
+    tableData,
+    loading,
+    fetchList
+  };
+}
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  hello
+  useCrud
 });

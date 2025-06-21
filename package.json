@@ -1,13 +1,16 @@
 {
-  "name": "north-crud",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.11.0"
+    "name": "north-crud",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "build:core": "pnpm --filter crud-core build",
+        "build:element-plus": "pnpm --filter crud-element-plus build",
+        "build": "pnpm build:core && pnpm build:element-plus",
+        "dev": "pnpm --filter playground dev"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "packageManager": "pnpm@10.11.0"
 }
