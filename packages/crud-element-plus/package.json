@@ -2,17 +2,18 @@
     "name": "@north/crud-element-plus",
     "version": "1.0.0",
     "description": "",
-    "main": "dist/index.js",
-    "module": "dist/index.mjs",
+    "main": "dist/index.cjs.js",
+    "module": "dist/index.esm.js",
     "types": "dist/index.d.ts",
     "exports": {
         ".": {
-            "import": "./dist/index.mjs",
-            "require": "./dist/index.js"
+            "import": "./dist/index.esm.js",
+            "require": "./dist/index.cjs.js",
+            "types": "./dist/index.d.ts"
         }
     },
     "scripts": {
-        "build": "tsup && vue-tsc --declaration --emitDeclarationOnly -p tsconfig.json"
+        "build": "rollup --config rollup.config.ts --configPlugin typescript"
     },
     "keywords": [],
     "author": "",
@@ -23,11 +24,17 @@
         "vue": "^3.5.17"
     },
     "devDependencies": {
+        "@rollup/plugin-commonjs": "^28.0.6",
+        "@rollup/plugin-node-resolve": "^16.0.1",
+        "@types/node": "^24.0.3",
         "@vue/compiler-sfc": "^3.5.17",
         "element-plus": "^2.10.2",
-        "tsup": "^8.5.0",
+        "rollup": "^4.44.0",
+        "rollup-plugin-postcss": "^4.0.2",
+        "rollup-plugin-typescript2": "^0.36.0",
+        "rollup-plugin-vue": "^6.0.0",
+        "ts-node": "^10.9.2",
         "typescript": "^5.8.3",
-        "unplugin-vue": "^6.2.0",
         "vue": "^3.5.17",
         "vue-tsc": "^2.2.10"
     }
