@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url'
 import path from 'node:path'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -11,5 +12,5 @@ export default defineConfig({
             '@el': fileURLToPath(new URL('../crud-element-plus/src', import.meta.url))
         }
     },
-    plugins: [vue()]
+    plugins: [vue(), vueJsx()]
 })

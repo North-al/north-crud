@@ -1,74 +1,162 @@
 <template>
-    <CrudTable
-        :columns="columns"
-        :data="tableData"
-        :pagination="pagination"
-        :loading="loading"
-        @edit="onEdit"
-        @delete="onDelete">
-        <template #status="{ row }">
-            <el-tag :type="row.status === 1 ? 'success' : 'danger'">
-                {{ row.status === 1 ? '启用' : '禁用' }}
-            </el-tag>
-        </template>
+    <div class="table-demo">
+        <h2>基础表格示例</h2>
+        <CrudTable :data="tableData" :columns="basicTableConfig.columns">
+            <!-- 自定义状态列 -->
+            <template #status="{ row }">
+                <el-tag :type="getStatusType(row.status)">
+                    {{ getStatusText(row.status) }}
+                </el-tag>
+            </template>
 
-        <template #operation="{ row }">
-            <el-button size="small" type="primary" @click="onEdit(row)">编辑</el-button>
-            <el-button size="small" type="danger" @click="onDelete(row)">删除</el-button>
-        </template>
-    </CrudTable>
+            <!-- 自定义操作列 -->
+            <template #action="{ row, index }">
+                <el-button type="primary" link size="small" @click="handleEdit(row)"> 编辑 </el-button>
+                <el-button type="danger" link size="small" @click="handleDelete(row, index)"> 删除 </el-button>
+            </template>
+        </CrudTable>
+    </div>
 </template>
 
-<script setup lang="ts">
-    import { ref } from 'vue'
-    import { useCrud } from '@north/crud-core'
-    // import { CrudTable } from '@north/crud-element-plus'
-    // import { useCrud } from '@core/composables/useCrud'
-    import CrudTable from '@el/components/CrudTable.vue'
+<script lang="tsx" setup>
+    import { ref, reactive, onMounted } from 'vue'
+    import { ElTag, ElButton, ElMessage } from 'element-plus'
+    import CrudTable from '@el/components/CrudTable/index.vue'
+    import { TableConfig } from '@el/types'
 
-    // 模拟接口
-    const total = ref(53)
-    const currentPage = ref(1)
-    const pageSize = ref(10)
-
-    const pagination = {
-        currentPage: 1,
-        pageSize: 10,
-        total: total.value,
-        onChange: (page: number, size: number) => {
-            console.log('分页变化', page, size)
-            pagination.currentPage = page
-            pagination.pageSize = size
-            // 可在此调用 API 重新请求数据
-            fetchList()
+    // 模拟数据
+    const tableData = ref([
+        {
+            id: 1,
+            name: '张三',
+            email: 'zhangsan@example.com',
+            phone: '13800138000',
+            status: 1,
+            createTime: '2024-01-15 10:30:00',
+            role: '管理员'
+        },
+        {
+            id: 2,
+            name: '李四',
+            email: 'lisi@example.com',
+            phone: '13800138001',
+            status: 0,
+            createTime: '2024-01-16 14:20:00',
+            role: '普通用户'
+        },
+        {
+            id: 3,
+            name: '王五',
+            email: 'wangwu@example.com',
+            phone: '13800138002',
+            status: 1,
+            createTime: '2024-01-17 09:15:00',
+            role: '编辑'
         }
+    ])
+
+    const loading = ref(false)
+
+    // 基础表格配置
+    const basicTableConfig = reactive<TableConfig>({
+        columns: [
+            { type: 'selection', width: 50 },
+            { type: 'index', label: '序号', width: 60, align: 'center' },
+            { label: '姓名', prop: 'name', width: 120, sortable: true },
+            { label: '邮箱', prop: 'email', width: 200, showOverflowTooltip: true },
+            { label: '手机号', prop: 'phone', width: 140, hidden: true },
+            { label: '状态', prop: 'status', width: 100, align: 'center' },
+            {
+                label: '创建时间',
+                prop: 'createTime',
+                width: 180,
+                align: 'center',
+                sortable: true,
+                render(row, column, cellValue, index) {
+                    return <el-tag type='primary'>{cellValue}</el-tag>
+                }
+            },
+            { prop: 'action', label: '操作', width: 150, fixed: 'right', align: 'center' }
+        ],
+        border: true,
+        stripe: true
+    })
+
+    // // 基础操作按钮
+    // const actionButtons: ActionButton[] = [
+    //     {
+    //         text: '编辑',
+    //         type: 'primary',
+    //         link: true,
+    //         size: 'small',
+    //         onClick: (row, index) => {
+    //             handleEdit(row)
+    //         }
+    //     },
+    //     {
+    //         text: '删除',
+    //         type: 'danger',
+    //         link: true,
+    //         size: 'small',
+    //         confirm: {
+    //             title: '删除确认',
+    //             message: '确定要删除这条记录吗？',
+    //             type: 'warning'
+    //         },
+    //         onClick: (row, index) => {
+    //             handleDelete(row, index)
+    //         }
+    //     }
+    // ]
+
+    const handleEdit = (row: any) => {
+        ElMessage.info(`编辑用户：${row.name}`)
     }
 
-    const api = async () => {
-        const data = Array.from({ length: pageSize.value }, (_, i) => ({
-            id: (currentPage.value - 1) * pageSize.value + i + 1,
-            name: `用户 ${Math.random().toString(36).slice(2, 6)}`,
-            status: Math.random() > 0.5 ? 1 : 0 // 随机状态
-        }))
-        return data
+    const handleDelete = (row: any, index: number) => {
+        tableData.value.splice(index, 1)
+        ElMessage.success('删除成功')
     }
 
-    const { tableData, loading, fetchList } = useCrud({ api })
-
-    const columns = [
-        { type: 'index', width: 50 },
-        { label: '姓名', prop: 'name' },
-        { label: '状态', prop: 'status' },
-        { label: '操作', type: 'action', width: 160, fixed: 'right' }
-    ]
-
-    const onEdit = (row: any) => {
-        console.log('编辑', row)
+    const handlePageChange = (page: number, pageSize: number) => {
+        console.log('分页变化：', page, pageSize)
     }
 
-    const onDelete = (row: any) => {
-        console.log('删除', row)
+    const loadData = () => {
+        loading.value = true
+        // 模拟接口请求
+        setTimeout(() => {
+            loading.value = false
+        }, 1000)
     }
 
-    fetchList()
+    // 状态相关方法
+    const getStatusType = (status: number) => {
+        return status === 1 ? 'success' : 'danger'
+    }
+
+    const getStatusText = (status: number) => {
+        return status === 1 ? '启用' : '禁用'
+    }
+
+    onMounted(() => {
+        loadData()
+    })
 </script>
+
+<style scoped>
+    .table-demo {
+        padding: 20px;
+    }
+
+    .table-demo h2 {
+        margin: 30px 0 20px;
+        color: var(--el-text-color-primary);
+        border-bottom: 2px solid var(--el-color-primary);
+        padding-bottom: 10px;
+    }
+
+    .table-demo h2:first-child {
+        margin-top: 0;
+    }
+</style>

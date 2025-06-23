@@ -1,26 +1,3 @@
-// 基础CRUD配置接口
-export interface CrudOptions {
-    api: () => Promise<any[]>
-}
-
-// 分页参数接口
-export interface PaginationParams {
-    page: number
-    pageSize: number
-    total?: number
-}
-
-// 排序参数接口
-export interface SortParams {
-    prop: string
-    order: 'ascending' | 'descending'
-}
-
-// 筛选参数接口
-export interface FilterParams {
-    [key: string]: any
-}
-
 // 表格列配置接口
 export interface TableColumn {
     /** 列标题 */
@@ -136,4 +113,15 @@ export interface ActionButton {
         message?: string
         type?: 'warning' | 'info' | 'success' | 'error'
     }
+}
+
+// 排序参数接口
+export interface SortParams {
+    prop: string
+    order: 'ascending' | 'descending'
+}
+
+// 筛选参数接口
+export interface FilterParams {
+    [key: string]: any
 }
