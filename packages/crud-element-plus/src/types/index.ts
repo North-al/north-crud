@@ -1,46 +1,6 @@
 // 表格列配置接口
-export interface TableColumn {
-    /** 列标题 */
-    label: string
-    /** 对应字段名 */
-    prop?: string
-    /** 列宽度 */
-    width?: string | number
-    /** 最小列宽度 */
-    minWidth?: string | number
-    /** 列类型 */
-    type?: 'index' | 'selection' | 'expand' | 'action'
-    /** 是否固定列 */
-    fixed?: boolean | 'left' | 'right'
-    /** 是否可排序 */
-    sortable?: boolean | 'custom'
-    /** 是否可筛选 */
-    filterable?: boolean
-    /** 筛选选项 */
-    filters?: Array<{ text: string; value: any }>
-    /** 列对齐方式 */
-    align?: 'left' | 'center' | 'right'
-    /** 表头对齐方式 */
-    headerAlign?: 'left' | 'center' | 'right'
-    /** 是否显示溢出tooltip */
-    showOverflowTooltip?: boolean
-    /** 自定义渲染函数 */
-    render?: (row: any, column: TableColumn, cellValue: any, index: number) => any
-    /** 自定义格式化函数 */
-    formatter?: (row: any, column: TableColumn, cellValue: any, index: number) => string
-    /** 是否可编辑 */
-    editable?: boolean
-    /** 编辑类型 */
-    editType?: 'input' | 'select' | 'date' | 'number'
-    /** 编辑选项（用于select类型） */
-    editOptions?: Array<{ label: string; value: any }>
-    /** 是否必填 */
-    required?: boolean
-    /** 验证规则 */
-    rules?: any[]
-    /** 是否隐藏 */
-    hidden?: boolean
-}
+
+import { TableColumn } from '@/components/CrudTable/props'
 
 // 表格配置接口
 export interface TableConfig {

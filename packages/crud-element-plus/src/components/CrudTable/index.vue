@@ -1,11 +1,12 @@
 <script setup lang="ts">
     import { computed, ref, useAttrs } from 'vue'
-    import { NorthTableProps } from '@/components/CrudTable/props'
+    import { NorthTableProps, TableColumn } from '@/components/CrudTable/props'
 
     const attrs = useAttrs()
     const emits = defineEmits()
+    const slots = defineSlots()
 
-    // 获取table的on事件
+    // TODO:【目前来说有点多此一举的一步, 后续用不到删了】
     const tableAttrs = computed(() => {
         const _events = Object.fromEntries(Object.entries(attrs).filter(([key]) => key.startsWith('on')))
         const _attrs = Object.fromEntries(Object.entries(attrs).filter(([key]) => !key.startsWith('on')))
@@ -19,7 +20,28 @@
 
     const tableRef = ref()
     const visibleColumns = computed(() => props.columns.filter(col => col.hidden !== true))
-    console.log(visibleColumns)
+
+    const formatTableColumnAttr = computed(() => {
+        return (col: TableColumn) => {
+            // 处理filter内容
+            if (col.filter) {
+                return {
+                    ...col,
+                    filters: col.filter.filters,
+                    'filter-placement': col.filter.placement || 'bottom-end',
+                    'filter-class-name': col.filter.className || '',
+                    'filter-multiple': col.filter.multiple ?? true,
+                    'filter-method': col.filter.method,
+                    'filtered-value': col.filter.value
+                }
+            }
+            return col
+        }
+    })
+
+    defineExpose({
+        tableRef
+    })
 </script>
 
 <template>
@@ -28,12 +50,21 @@
             v-loading="loading"
             ref="tableRef"
             :data="data"
-            :border="true"
-            :stripe="true"
+            :border="false"
+            :stripe="false"
+            row-key="id"
             style="width: 100%"
-            v-bind="tableAttrs._attrs"
-            v-on="tableAttrs._events">
-            <el-table-column v-for="col in visibleColumns" :key="col.prop" v-bind="col" :label="col.label">
+            header-row-class-name="crud-header-row"
+            header-cell-class-name="crud-header-cell"
+            highlight-current-row
+            show-overflow-tooltip
+            v-bind="{ ...tableAttrs._attrs, ...tableAttrs._events }">
+            <el-table-column
+                v-for="col in visibleColumns"
+                :key="col.prop"
+                :column-key="col.prop"
+                :label="col.label"
+                v-bind="formatTableColumnAttr(col)">
                 <template v-if="$slots[col.prop]" #default="{ row }">
                     <slot :name="col.prop" :row="row" />
                 </template>
@@ -48,4 +79,18 @@
     </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style>
+    .north-crud-table .crud-header-row {
+        background-color: #f2f3f5;
+    }
+
+    .north-crud-table .crud-header-row th.crud-header-cell {
+        color: #606266;
+        background-color: #f2f3f5;
+    }
+
+    .north-crud-table .el-table.is-scrolling-none th.el-table-fixed-column--left,
+    .north-crud-table .el-table.is-scrolling-none th.el-table-fixed-column--right {
+        background-color: #f2f3f5;
+    }
+</style>

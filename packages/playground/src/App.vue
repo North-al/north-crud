@@ -1,7 +1,12 @@
 <template>
     <div class="table-demo">
         <h2>基础表格示例</h2>
-        <CrudTable :data="tableData" :columns="basicTableConfig.columns">
+        <CrudTable
+            :loading="loading"
+            :data="tableData"
+            :columns="basicTableConfig.columns"
+            @selection-change="handleSelectionChange"
+            @row-dblclick="handleCurrentChange">
             <!-- 自定义状态列 -->
             <template #status="{ row }">
                 <el-tag :type="getStatusType(row.status)">
@@ -15,6 +20,15 @@
                 <el-button type="danger" link size="small" @click="handleDelete(row, index)"> 删除 </el-button>
             </template>
         </CrudTable>
+
+        <h2>单选 + 显示索引表格示例</h2>
+        <CrudTable
+            :loading="loading"
+            :data="tableData"
+            :columns="radioTableConfig.columns"
+            highlight-current-row
+            @current-change="handleCurrentChange">
+        </CrudTable>
     </div>
 </template>
 
@@ -23,7 +37,13 @@
     import { ElTag, ElButton, ElMessage } from 'element-plus'
     import CrudTable from '@el/components/CrudTable/index.vue'
     import { TableConfig } from '@el/types'
+    import { TableColumn } from '@el/components/CrudTable/props'
 
+    const handleSelectionChange = (val: any) => {
+        console.log(val)
+    }
+
+    // const tableData = ref([])
     // 模拟数据
     const tableData = ref([
         {
@@ -61,11 +81,68 @@
     const basicTableConfig = reactive<TableConfig>({
         columns: [
             { type: 'selection', width: 50 },
-            { type: 'index', label: '序号', width: 60, align: 'center' },
+            { label: '序号', prop: 'id', width: 60, align: 'center' },
             { label: '姓名', prop: 'name', width: 120, sortable: true },
-            { label: '邮箱', prop: 'email', width: 200, showOverflowTooltip: true },
+            { label: '邮箱', prop: 'email', showOverflowTooltip: true },
             { label: '手机号', prop: 'phone', width: 140, hidden: true },
             { label: '状态', prop: 'status', width: 100, align: 'center' },
+            {
+                label: '创建时间',
+                prop: 'createTime',
+                width: 180,
+                align: 'center',
+                sortable: true,
+                render(row: any, column: any, cellValue: string, index: number) {
+                    return <el-tag type='primary'>{cellValue}</el-tag>
+                }
+            },
+            { prop: 'action', label: '操作', width: 150, fixed: 'right', align: 'center' }
+        ],
+        border: true,
+        stripe: true
+    })
+
+    const radioTableConfig = reactive<TableConfig>({
+        columns: [
+            {
+                type: 'expand',
+                render(row, column, cellValue, index) {
+                    return (
+                        <>
+                            <div>
+                                <p>姓名: {row.name}</p>
+                                <p>邮箱: {row.email}</p>
+                                <p>cellValue: {cellValue}</p>
+                                <p>索引: {index}</p>
+                                <p>列: {column}</p>
+                            </div>
+                        </>
+                    )
+                }
+            },
+            { type: 'index', width: 50 },
+            {
+                label: '姓名',
+                prop: 'name',
+                width: 120,
+                sortable: true,
+                filter: {
+                    filters: [{ text: '张三', value: '张三' }],
+                    method(value, row, column) {
+                        const property = column['property']
+                        return row[property] === value
+                    },
+                    multiple: false
+                }
+            },
+            { label: '邮箱', prop: 'email', minWidth: 200, showOverflowTooltip: true },
+            { label: '手机号', prop: 'phone', hidden: true },
+            {
+                label: '状态',
+                prop: 'status',
+                width: 100,
+                align: 'center'
+            },
             {
                 label: '创建时间',
                 prop: 'createTime',
@@ -77,11 +154,12 @@
                 }
             },
             { prop: 'action', label: '操作', width: 150, fixed: 'right', align: 'center' }
-        ],
-        border: true,
-        stripe: true
+        ] as TableColumn[]
     })
 
+    const handleCurrentChange = (row: any) => {
+        ElMessage.info(`当前选中用户：${row.name}`)
+    }
     // // 基础操作按钮
     // const actionButtons: ActionButton[] = [
     //     {
