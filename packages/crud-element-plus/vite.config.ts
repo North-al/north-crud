@@ -1,0 +1,80 @@
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import dts from 'vite-plugin-dts'
+
+import { resolve } from 'path'
+export default defineConfig({
+    // 路径别名
+    resolve: {
+        alias: {
+            '@': resolve(__dirname, 'src')
+        }
+    },
+    plugins: [
+        vue(),
+        dts({
+            entryRoot: './src',
+            outDir: resolve(__dirname, '../../dist/crud-element-plus'),
+            tsconfigPath: './tsconfig.json', // 指定使用的tsconfig.json
+            insertTypesEntry: true
+        })
+    ],
+    build: {
+        // 构建为库模式
+        lib: {
+            entry: resolve(__dirname, 'src/index.ts'),
+            name: 'NorthCrudElementPlus',
+            fileName: format => `index.${format === 'es' ? 'mjs' : format === 'cjs' ? 'cjs' : 'js'}`
+        },
+        sourcemap: true,
+        emptyOutDir: true,
+        target: 'es2020',
+        // 外部化依赖
+        rollupOptions: {
+            external: ['vue', 'element-plus'],
+            output: {
+                // 统一的资源文件命名规则
+                assetFileNames: chunkInfo => {
+                    // 将 CSS 文件名改为 index.css
+                    if (chunkInfo.name?.endsWith('.css')) {
+                        return 'index.css'
+                    }
+                    return '[name][extname]'
+                },
+                globals: {
+                    vue: 'Vue',
+                    'element-plus': 'ElementPlus'
+                }
+            }
+            // output: [
+            //     {
+            //         format: 'es',
+            //         entryFileNames: 'index.mjs',
+            //         dir: resolve(__dirname, 'dist'),
+            //         assetFileNames(chunkInfo) {
+            //             // 将css文件名改为index.css
+            //             if (chunkInfo.name!.endsWith('.css')) {
+            //                 return 'index.css'
+            //             }
+
+            //             return '[name][extname]'
+            //         }
+            //     },
+            //     {
+            //         format: 'cjs',
+            //         entryFileNames: 'index.js',
+            //         exports: 'named',
+            //         dir: resolve(__dirname, 'dist'),
+            //         assetFileNames(chunkInfo) {
+            //             // 将css文件名改为index.css
+            //             if (chunkInfo.name!.endsWith('.css')) {
+            //                 return 'index.css'
+            //             }
+
+            //             return '[name][extname]'
+            //         }
+            //     }
+            // ]
+        }
+    }
+})

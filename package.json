@@ -1,16 +1,63 @@
 {
     "name": "north-crud",
-    "version": "1.0.0",
-    "description": "",
+    "version": "1.0.1",
+    "description": "基于Vue3和Element Plus的CRUD组件",
+    "type": "module",
     "main": "index.js",
+    "exports": {
+        "./crud-core": {
+            "types": "./dist/crud-core/index.d.ts",
+            "import": "./dist/crud-core/index.mjs",
+            "require": "./dist/crud-core/index.cjs"
+        },
+        "./crud-element-plus": {
+            "types": "./dist/crud-element-plus/index.d.ts",
+            "import": "./dist/crud-element-plus/index.mjs",
+            "require": "./dist/crud-element-plus/index.cjs"
+        },
+        "./package.json": "./package.json"
+    },
+    "files": [
+        "dist",
+        "README.md"
+    ],
     "scripts": {
+        "clean": "rimraf dist packages/crud-core/dist packages/crud-element-plus/dist",
         "build:core": "pnpm --filter crud-core build",
         "build:element-plus": "pnpm --filter crud-element-plus build",
         "build": "pnpm build:core && pnpm build:element-plus",
         "dev": "pnpm --filter playground dev"
     },
-    "keywords": [],
-    "author": "",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/North-al/north-crud.git"
+    },
+    "homepage": "https://github.com/North-al/north-crud.git",
+    "keywords": [
+        "vue3",
+        "element-plus",
+        "crud",
+        "table",
+        "typescript"
+    ],
+    "author": "North <1227379879@qq.com>",
     "license": "ISC",
-    "packageManager": "pnpm@10.11.0"
+    "packageManager": "pnpm@10.11.0",
+    "devDependencies": {
+        "@rollup/plugin-alias": "^5.1.1",
+        "@rollup/plugin-commonjs": "^28.0.6",
+        "@rollup/plugin-node-resolve": "^16.0.1",
+        "@types/node": "^24.0.3",
+        "@vitejs/plugin-vue": "^6.0.0",
+        "rimraf": "^6.0.1",
+        "rollup": "^4.44.0",
+        "rollup-plugin-dts": "^6.2.1",
+        "rollup-plugin-postcss": "^4.0.2",
+        "rollup-plugin-typescript": "^1.0.1",
+        "rollup-plugin-typescript2": "^0.36.0",
+        "tsx": "^4.20.3",
+        "unplugin-vue-define-options": "3.0.0-beta.14",
+        "vite": "^6.3.5",
+        "vite-plugin-dts": "^4.5.4"
+    }
 }

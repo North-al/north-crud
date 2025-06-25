@@ -1,10 +1,14 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="T">
     import { computed, ref, useAttrs } from 'vue'
-    import { NorthTableProps, TableColumn } from '@/components/CrudTable/props'
+    import { NorthTableProps, TableColumn } from './props'
+
+    defineOptions({
+        name: 'CrudTable'
+    })
 
     const attrs = useAttrs()
     const emits = defineEmits()
-    const slots = defineSlots()
+    // const slots = defineSlots()
 
     // TODO:【目前来说有点多此一举的一步, 后续用不到删了】
     const tableAttrs = computed(() => {
@@ -16,28 +20,10 @@
         }
     })
 
-    const props = defineProps<NorthTableProps>()
+    const props = defineProps<NorthTableProps<T>>()
 
     const tableRef = ref()
     const visibleColumns = computed(() => props.columns.filter(col => col.hidden !== true))
-
-    const formatTableColumnAttr = computed(() => {
-        return (col: TableColumn) => {
-            // 处理filter内容
-            if (col.filter) {
-                return {
-                    ...col,
-                    filters: col.filter.filters,
-                    'filter-placement': col.filter.placement || 'bottom-end',
-                    'filter-class-name': col.filter.className || '',
-                    'filter-multiple': col.filter.multiple ?? true,
-                    'filter-method': col.filter.method,
-                    'filtered-value': col.filter.value
-                }
-            }
-            return col
-        }
-    })
 
     defineExpose({
         tableRef
@@ -64,7 +50,13 @@
                 :key="col.prop"
                 :column-key="col.prop"
                 :label="col.label"
-                v-bind="formatTableColumnAttr(col)">
+                :filters="col.filter?.filters"
+                :filter-placement="col.filter?.placement || 'bottom-end'"
+                :filter-class-name="col.filter?.className"
+                :filter-multiple="col.filter?.multiple ?? true"
+                :filter-method="col.filter?.method"
+                :filtered-value="col.filter?.value"
+                v-bind="col">
                 <template v-if="$slots[col.prop]" #default="{ row }">
                     <slot :name="col.prop" :row="row" />
                 </template>

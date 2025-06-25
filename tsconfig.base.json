@@ -1,22 +1,27 @@
 {
     "compilerOptions": {
-        "target": "ESNext",
+        "target": "ES2020",
         "module": "ESNext",
         "moduleResolution": "Node",
+        "lib": ["ES2020", "DOM", "DOM.Iterable"],
         "strict": true,
         "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
         "jsx": "preserve",
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
-        "declaration": true,
-        "declarationMap": true,
-        "sourceMap": true,
+        // "declaration": true,
+        // "declarationMap": true,
+        // "sourceMap": true,
         "resolveJsonModule": true,
+        "isolatedModules": true,
         "baseUrl": ".",
         "paths": {
             "@core/*": ["../crud-element-plus/src/*"],
             "@el/*": ["packages/crud-element-plus/src/*"]
-        }
+        },
+        "types": ["node"],
+        "verbatimModuleSyntax": false
     },
     "include": ["src/**/*.ts", "src/**/*.vue"],
     "exclude": ["node_modules", "dist"]

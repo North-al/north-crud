@@ -1,25 +1,28 @@
 {
     "extends": "../../tsconfig.base.json",
     "compilerOptions": {
-        "baseUrl": "./",
         "outDir": "dist",
-        "target": "ESNext",
-        "module": "ESNext",
-        "jsx": "preserve",
-        "moduleResolution": "Node",
-        "useDefineForClassFields": true,
-        "allowSyntheticDefaultImports": true,
         "strict": true,
-        "sourceMap": true,
-        "resolveJsonModule": true,
-        "isolatedModules": true,
+        "noImplicitAny": false,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": false,
+        "noUnusedParameters": false,
+        // 添加 Vue 相关配置
+        "allowJs": true,
+        "checkJs": false,
+        // 确保正确处理 Vue 文件
+        "moduleResolution": "Node",
         "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
         "skipLibCheck": true,
         "declaration": true,
-        "lib": ["ESNext", "DOM"],
-        "paths": {
-            "@/*": ["src/*"]
-        }
+        "emitDeclarationOnly": true,
+        // 添加 Element Plus 相关类型
+        "types": ["node", "element-plus/global"]
     },
-    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+    "include": ["src/**/*.ts", "src/**/*.vue", "src/**/*.d.ts"],
+    "exclude": ["node_modules", "dist"]
 }

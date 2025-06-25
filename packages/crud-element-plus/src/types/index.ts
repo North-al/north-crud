@@ -1,6 +1,6 @@
 // 表格列配置接口
 
-import { TableColumn } from '@/components/CrudTable/props'
+import { TableColumn } from '../components/CrudTable/props'
 
 // 表格配置接口
 export interface TableConfig {

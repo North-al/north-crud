@@ -1,7 +1,7 @@
 {
     "name": "@north/crud-core",
-    "version": "1.0.0",
-    "description": "",
+    "version": "1.0.1",
+    "description": "North CRUD 核心包，提供类型定义和核心逻辑",
     "main": "dist/index.js",
     "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
@@ -13,18 +13,22 @@
         }
     },
     "scripts": {
-        "build": "tsup src/index.ts --dts --format esm,cjs"
+        "build": "rollup -c rollup.config.ts --configPlugin typescript",
+        "clean": "rimraf dist"
     },
-    "keywords": [],
-    "author": "",
+    "keywords": [
+        "crud",
+        "vue3",
+        "typescript",
+        "core"
+    ],
+    "author": "North <1227379879@qq.com>",
     "license": "ISC",
     "packageManager": "pnpm@10.11.0",
     "peerDependencies": {
         "vue": "^3.5.17"
     },
     "devDependencies": {
-        "tsup": "^8.5.0",
-        "typescript": "^5.8.3",
         "vue": "^3.5.17"
     }
 }

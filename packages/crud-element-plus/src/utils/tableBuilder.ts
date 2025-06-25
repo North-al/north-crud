@@ -1,4 +1,5 @@
-import type { TableColumn, TableConfig, ActionButton } from '../types'
+import { TableColumn } from '..'
+import type { TableConfig, ActionButton } from '../types'
 
 /**
  * 表格列构建器
@@ -32,10 +33,10 @@ export class TableColumnBuilder {
     /**
      * 设置列类型
      */
-    type(type: 'index' | 'selection' | 'expand' | 'action'): this {
-        this.column.type = type
-        return this
-    }
+    // type(type: 'index' | 'selection' | 'expand' | 'action'): this {
+    //     this.column.type = type
+    //     return this
+    // }
 
     /**
      * 设置固定列
@@ -56,13 +57,13 @@ export class TableColumnBuilder {
     /**
      * 设置筛选
      */
-    filterable(filters?: Array<{ text: string; value: any }>): this {
-        this.column.filterable = true
-        if (filters) {
-            this.column.filters = filters
-        }
-        return this
-    }
+    // filterable(filters?: Array<{ text: string; value: any }>): this {
+    //     this.column.filterable = true
+    //     if (filters) {
+    //         this.column.filters = filters
+    //     }
+    //     return this
+    // }
 
     /**
      * 设置对齐方式
@@ -75,10 +76,10 @@ export class TableColumnBuilder {
     /**
      * 设置表头对齐方式
      */
-    headerAlign(align: 'left' | 'center' | 'right'): this {
-        this.column.headerAlign = align
-        return this
-    }
+    // headerAlign(align: 'left' | 'center' | 'right'): this {
+    //     this.column.headerAlign = align
+    //     return this
+    // }
 
     /**
      * 设置溢出tooltip
@@ -107,30 +108,30 @@ export class TableColumnBuilder {
     /**
      * 设置编辑功能
      */
-    editable(editType: 'input' | 'select' | 'date' | 'number', options?: Array<{ label: string; value: any }>): this {
-        this.column.editable = true
-        this.column.editType = editType
-        if (options) {
-            this.column.editOptions = options
-        }
-        return this
-    }
+    // editable(editType: 'input' | 'select' | 'date' | 'number', options?: Array<{ label: string; value: any }>): this {
+    //     this.column.editable = true
+    //     this.column.editType = editType
+    //     if (options) {
+    //         this.column.editOptions = options
+    //     }
+    //     return this
+    // }
 
     /**
      * 设置必填
      */
-    required(required: boolean = true): this {
-        this.column.required = required
-        return this
-    }
+    // required(required: boolean = true): this {
+    //     this.column.required = required
+    //     return this
+    // }
 
     /**
      * 设置验证规则
      */
-    rules(rules: any[]): this {
-        this.column.rules = rules
-        return this
-    }
+    // rules(rules: any[]): this {
+    //     this.column.rules = rules
+    //     return this
+    // }
 
     /**
      * 设置隐藏
@@ -366,23 +367,23 @@ export const commonColumns = {
     /**
      * 序号列
      */
-    index: (label: string = '序号', width: number = 60): TableColumn => {
-        return createColumn(label).type('index').width(width).align('center').build()
-    },
+    // index: (label: string = '序号', width: number = 60): TableColumn => {
+    //     return createColumn(label).type('index').width(width).align('center').build()
+    // },
 
     /**
      * 选择列
      */
-    selection: (width: number = 50): TableColumn => {
-        return createColumn('').type('selection').width(width).build()
-    },
+    // selection: (width: number = 50): TableColumn => {
+    //     return createColumn('').type('selection').width(width).build()
+    // },
 
     /**
      * 操作列
      */
-    action: (label: string = '操作', width: number = 200, fixed: 'right' | 'left' | boolean = 'right'): TableColumn => {
-        return createColumn(label).type('action').width(width).fixed(fixed).align('center').build()
-    },
+    // action: (label: string = '操作', width: number = 200, fixed: 'right' | 'left' | boolean = 'right'): TableColumn => {
+    //     return createColumn(label).type('action').width(width).fixed(fixed).align('center').build()
+    // },
 
     /**
      * 文本列

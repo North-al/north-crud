@@ -1,31 +1,27 @@
 {
     "name": "@north/crud-element-plus",
     "version": "1.0.0",
-    "description": "",
-    "main": "dist/index.cjs.js",
-    "module": "dist/index.esm.js",
+    "description": "North CRUD Element Plus 组件包",
+    "main": "dist/index.js",
+    "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
     "exports": {
         ".": {
-            "import": "./dist/index.esm.js",
-            "require": "./dist/index.cjs.js",
-            "types": "./dist/index.d.ts"
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.js"
         }
     },
     "scripts": {
-        "build": "rollup --config rollup.config.ts --configPlugin typescript"
+        "build": "vite build",
+        "clean": "rimraf dist"
     },
     "keywords": [
         "crud",
-        "curd",
+        "vue3",
         "element-plus",
-        "north"
+        "typescript"
     ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/North-al/north-crud.git"
-    },
-    "homepage": "https://github.com/North-al/north-crud.git",
     "author": "North <1227379879@qq.com>",
     "license": "ISC",
     "packageManager": "pnpm@10.11.0",
@@ -34,25 +30,8 @@
         "vue": "^3.5.17"
     },
     "devDependencies": {
-        "@babel/core": "^7.27.4",
-        "@rollup/plugin-alias": "^5.1.1",
-        "@rollup/plugin-babel": "^6.0.4",
-        "@rollup/plugin-commonjs": "^28.0.6",
-        "@rollup/plugin-node-resolve": "^16.0.1",
-        "@rollup/plugin-typescript": "^12.1.3",
         "@types/node": "^24.0.3",
-        "@vitejs/plugin-vue": "^5.2.4",
-        "@vue/babel-helper-vue-jsx-merge-props": "^1.4.0",
-        "@vue/babel-plugin-jsx": "^1.4.0",
-        "@vue/compiler-sfc": "^3.5.17",
         "element-plus": "^2.10.2",
-        "rollup": "^4.44.0",
-        "rollup-plugin-postcss": "^4.0.2",
-        "rollup-plugin-typescript2": "^0.36.0",
-        "rollup-plugin-vue": "^6.0.0",
-        "ts-node": "^10.9.2",
-        "typescript": "^5.8.3",
-        "vue": "^3.5.17",
-        "vue-tsc": "^2.2.10"
+        "vue": "^3.5.17"
     }
 }
