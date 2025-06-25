@@ -1,8 +1,12 @@
 {
-    "name": "north-crud",
-    "version": "1.0.1",
+    "name": "@northal/crud",
+    "version": "1.0.0",
+    "private": true,
     "description": "基于Vue3和Element Plus的CRUD组件",
     "type": "module",
+    "workspaces": [
+        "packages/*"
+    ],
     "main": "index.js",
     "exports": {
         "./crud-core": {

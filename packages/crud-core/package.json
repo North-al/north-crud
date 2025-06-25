@@ -1,6 +1,6 @@
 {
-    "name": "@north/crud-core",
-    "version": "1.0.1",
+    "name": "@northal/crud-core",
+    "version": "1.0.0",
     "description": "North CRUD 核心包，提供类型定义和核心逻辑",
     "main": "dist/index.js",
     "module": "dist/index.mjs",
@@ -12,14 +12,23 @@
             "types": "./dist/index.d.ts"
         }
     },
+    "files": [
+        "dist",
+        "README.md"
+    ],
     "scripts": {
         "build": "rollup -c rollup.config.ts --configPlugin typescript",
         "clean": "rimraf dist"
     },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/North-al/north-crud.git"
+    },
+    "homepage": "https://github.com/North-al/north-crud.git",
     "keywords": [
         "crud",
         "vue3",
-        "typescript",
+        "useCrud",
         "core"
     ],
     "author": "North <1227379879@qq.com>",

@@ -14,7 +14,7 @@ export default defineConfig({
         vue(),
         dts({
             entryRoot: './src',
-            outDir: resolve(__dirname, '../../dist/crud-element-plus'),
+            outDir: resolve(__dirname, 'dist'),
             tsconfigPath: './tsconfig.json', // 指定使用的tsconfig.json
             insertTypesEntry: true
         })
@@ -46,35 +46,6 @@ export default defineConfig({
                     'element-plus': 'ElementPlus'
                 }
             }
-            // output: [
-            //     {
-            //         format: 'es',
-            //         entryFileNames: 'index.mjs',
-            //         dir: resolve(__dirname, 'dist'),
-            //         assetFileNames(chunkInfo) {
-            //             // 将css文件名改为index.css
-            //             if (chunkInfo.name!.endsWith('.css')) {
-            //                 return 'index.css'
-            //             }
-
-            //             return '[name][extname]'
-            //         }
-            //     },
-            //     {
-            //         format: 'cjs',
-            //         entryFileNames: 'index.js',
-            //         exports: 'named',
-            //         dir: resolve(__dirname, 'dist'),
-            //         assetFileNames(chunkInfo) {
-            //             // 将css文件名改为index.css
-            //             if (chunkInfo.name!.endsWith('.css')) {
-            //                 return 'index.css'
-            //             }
-
-            //             return '[name][extname]'
-            //         }
-            //     }
-            // ]
         }
     }
 })

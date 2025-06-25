@@ -77,18 +77,18 @@ importers:
       '@element-plus/icons-vue':
         specifier: ^2.3.0
         version: 2.3.1(vue@3.5.17(typescript@5.8.3))
-      '@north/crud-core':
-        specifier: workspace:*
-        version: link:../crud-core
-      '@north/crud-element-plus':
-        specifier: workspace:*
-        version: link:../crud-element-plus
+      '@northal/crud-element-plus':
+        specifier: ^1.0.0
+        version: 1.0.0(element-plus@2.10.2(vue@3.5.17(typescript@5.8.3)))(vue@3.5.17(typescript@5.8.3))
       '@types/node':
         specifier: ^24.0.3
         version: 24.0.3
       element-plus:
         specifier: ^2.10.2
         version: 2.10.2(vue@3.5.17(typescript@5.8.3))
+      north-crud:
+        specifier: ^1.0.1
+        version: 1.0.1
       vue:
         specifier: ^3.5.13
         version: 3.5.17(typescript@5.8.3)
@@ -448,6 +448,12 @@ packages:
 
   '@microsoft/tsdoc@0.15.1':
     resolution: {integrity: sha512-4aErSrCR/On/e5G2hDP0wjooqDdauzEbIq8hIkIe5pXV0rtWJZvdCEKL0ykZxex+IxIwBp0eGeV48hQN07dXtw==}
+
+  '@northal/crud-element-plus@1.0.0':
+    resolution: {integrity: sha512-WTbXSCr71QapQsN5iq8pDdgDhNQsmAeaQ67LjiMjagTkD5PccxdUbyHMOoUYwTFfJcXQRgkDQsHzoCpykgwBzA==}
+    peerDependencies:
+      element-plus: ^2.10.2
+      vue: ^3.5.17
 
   '@rolldown/pluginutils@1.0.0-beta.19':
     resolution: {integrity: sha512-3FL3mnMbPu0muGOCaKAhhFEYmqv9eTfPSJRJmANrCwtgK8VuxpsZDGK+m0LYAGoyO8+0j5uRe4PeyPDK1yA/hA==}
@@ -1294,6 +1300,9 @@ packages:
 
   normalize-wheel-es@1.2.0:
     resolution: {integrity: sha512-Wj7+EJQ8mSuXr2iWfnujrimU35R2W4FAErEyTmJoJ7ucwTn2hOUSsRehMb5RSYkxXGTM7Y9QpvPmp++w5ftoJw==}
+
+  north-crud@1.0.1:
+    resolution: {integrity: sha512-lueS/e1ZYEcPID5gMQXQlbhgxy8w5icxSfFjZq3IJhE3M1TyVYw7camXz84fLoKjPyxWe8s067ymGfKrrFcd/g==}
 
   nth-check@2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
@@ -2273,6 +2282,11 @@ snapshots:
 
   '@microsoft/tsdoc@0.15.1': {}
 
+  '@northal/crud-element-plus@1.0.0(element-plus@2.10.2(vue@3.5.17(typescript@5.8.3)))(vue@3.5.17(typescript@5.8.3))':
+    dependencies:
+      element-plus: 2.10.2(vue@3.5.17(typescript@5.8.3))
+      vue: 3.5.17(typescript@5.8.3)
+
   '@rolldown/pluginutils@1.0.0-beta.19': {}
 
   '@rollup/plugin-alias@5.1.1(rollup@4.44.0)':
@@ -3143,6 +3157,8 @@ snapshots:
   normalize-url@6.1.0: {}
 
   normalize-wheel-es@1.2.0: {}
+
+  north-crud@1.0.1: {}
 
   nth-check@2.1.1:
     dependencies:

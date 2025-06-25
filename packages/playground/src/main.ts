@@ -7,4 +7,6 @@ import 'element-plus/dist/index.css'
 
 const app = createApp(App)
 app.use(ElementPlus)
+// 注册 CRUD 组件库
+
 app.mount('#app')

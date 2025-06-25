@@ -19,7 +19,7 @@ const pkg = JSON.parse(readFileSync(packageJsonPath, 'utf8'))
 // 外部依赖
 const external = [...Object.keys(pkg.peerDependencies || {}), ...Object.keys(pkg.dependencies || {})]
 
-const outputDir = path.resolve(__dirname, '../../dist/crud-core')
+const outputDir = path.resolve(__dirname, 'dist')
 
 export default defineConfig([
     {

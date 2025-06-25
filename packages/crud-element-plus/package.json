@@ -1,5 +1,5 @@
 {
-    "name": "@north/crud-element-plus",
+    "name": "@northal/crud-element-plus",
     "version": "1.0.0",
     "description": "North CRUD Element Plus 组件包",
     "main": "dist/index.js",
@@ -12,14 +12,24 @@
             "require": "./dist/index.js"
         }
     },
+    "files": [
+        "dist",
+        "README.md"
+    ],
     "scripts": {
         "build": "vite build",
         "clean": "rimraf dist"
     },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/North-al/north-crud.git"
+    },
+    "homepage": "https://github.com/North-al/north-crud.git",
     "keywords": [
-        "crud",
         "vue3",
         "element-plus",
+        "crud",
+        "table",
         "typescript"
     ],
     "author": "North <1227379879@qq.com>",

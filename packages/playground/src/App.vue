@@ -15,9 +15,9 @@
             </template>
 
             <!-- 自定义操作列 -->
-            <template #action="{ row, index }">
+            <template #action="{ row }">
                 <el-button type="primary" link size="small" @click="handleEdit(row)"> 编辑 </el-button>
-                <el-button type="danger" link size="small" @click="handleDelete(row, index)"> 删除 </el-button>
+                <el-button type="danger" link size="small" @click="handleDelete(row)"> 删除 </el-button>
             </template>
         </CrudTable>
 
@@ -35,9 +35,10 @@
 <script lang="tsx" setup>
     import { ref, reactive, onMounted } from 'vue'
     import { ElTag, ElButton, ElMessage } from 'element-plus'
-    import CrudTable from '@el/components/CrudTable/index.vue'
-    import { TableConfig } from '@el/types'
-    import { TableColumn } from '@el/components/CrudTable/props'
+    // import CrudTable from '@el/components/CrudTable/index.vue'
+    // import { TableConfig } from '@el/types'
+    // import { TableColumn } from '@el/components/CrudTable/props'
+    import { CrudTable, TableColumn, TableConfig } from '@northal/crud-element-plus'
 
     const handleSelectionChange = (val: any) => {
         console.log(val)
@@ -191,8 +192,8 @@
         ElMessage.info(`编辑用户：${row.name}`)
     }
 
-    const handleDelete = (row: any, index: number) => {
-        tableData.value.splice(index, 1)
+    const handleDelete = (row: any) => {
+        tableData.value.splice(1)
         ElMessage.success('删除成功')
     }
 
