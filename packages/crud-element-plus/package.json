@@ -1,6 +1,6 @@
 {
     "name": "@northal/crud-element-plus",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "description": "North CRUD Element Plus 组件包",
     "main": "dist/index.js",
     "module": "dist/index.mjs",
@@ -10,7 +10,8 @@
             "types": "./dist/index.d.ts",
             "import": "./dist/index.mjs",
             "require": "./dist/index.js"
-        }
+        },
+        "./index.css": "./dist/index.css"
     },
     "files": [
         "dist",
@@ -18,11 +19,12 @@
     ],
     "scripts": {
         "build": "vite build",
-        "clean": "rimraf dist"
+        "clean": "rimraf dist",
+        "publish": "npm publish --access public"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/North-al/north-crud.git"
+        "url": "git+https://github.com/North-al/north-crud.git"
     },
     "homepage": "https://github.com/North-al/north-crud.git",
     "keywords": [
