@@ -2,6 +2,8 @@
 
 import { TableColumn } from '../components/CrudTable/props'
 
+export type CrudToolType = { columns: TableColumn[]; refresh: (fetchData: () => Promise<any[]>) => Promise<void> }
+
 // 表格配置接口
 export interface TableConfig {
     /** 表格列配置 */

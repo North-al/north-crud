@@ -52,8 +52,8 @@ export interface TableColumn {
     render?: (row: any, column: TableColumn, cellValue: any, index: number) => any
     /** 自定义格式化函数 */
     formatter?: (row: any, column: TableColumn, cellValue: any, index: number) => string
-    /** 是否隐藏 */
-    hidden?: boolean
+    /** 是否显示 */
+    visible?: boolean
 }
 
 export interface TableColumnFilter {
