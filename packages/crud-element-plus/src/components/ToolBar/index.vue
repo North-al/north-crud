@@ -16,21 +16,22 @@
     const tool = inject<CrudToolType>('crud-table-to-tool')
 
     const resetColumns: TableColumn[] = JSON.parse(JSON.stringify(columns.value))
-    const columnsDraft = ref<TableColumn[]>(columns.value.filter(col => !col.type))
-
-    const onColumnVisibilityChange = () => {
-        emits('update:columns', columnsDraft.value)
-    }
+    const columnsDraft = computed<TableColumn[]>({
+        get: () => columns.value.filter(col => !col.type),
+        set: value => {
+            emits('update:columns', value)
+        }
+    })
 
     const moveColumn = (fromIndex: number, toIndex: number) => {
-        const column = columnsDraft.value.splice(fromIndex, 1)[0]
-        columnsDraft.value.splice(toIndex, 0, column)
-        emits('update:columns', columnsDraft.value)
+        const newColumns = [...columnsDraft.value]
+        const column = newColumns.splice(fromIndex, 1)[0]
+        newColumns.splice(toIndex, 0, column)
+        columnsDraft.value = newColumns
     }
 
     const onReset = () => {
-        columnsDraft.value = resetColumns.filter(col => !col.type)
-        emits('update:columns', resetColumns)
+        columns.value = resetColumns.filter(col => !col.type)
     }
 
     const toggleFullscreen = () => {
@@ -71,12 +72,9 @@
 
                 <div class="column-settings">
                     <div class="settings-tip">点击勾选或取消勾选各项，拖动行可以调整显示顺序</div>
-                    <vue-draggable-next :list="columnsDraft" class="column-list">
+                    <vue-draggable-next v-model="columnsDraft" class="column-list" item-key="prop">
                         <div class="column-item" v-for="(element, index) in columnsDraft" :key="element.prop">
-                            <el-checkbox
-                                v-model="element.visible"
-                                :label="element.label"
-                                @change="onColumnVisibilityChange" />
+                            <el-checkbox v-model="element.visible" :label="element.label" />
                             <div class="column-actions">
                                 <el-button
                                     text
