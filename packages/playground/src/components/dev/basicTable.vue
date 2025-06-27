@@ -70,7 +70,7 @@
                 }
             },
             { label: '邮箱', prop: 'email', minWidth: 200, showOverflowTooltip: true },
-            { label: '手机号', prop: 'phone', hidden: true },
+            { label: '手机号', prop: 'phone', visible: false },
             {
                 label: '状态',
                 prop: 'status',
@@ -105,8 +105,8 @@
             :columns="radioTableConfig.columns"
             highlight-current-row
             @current-change="handleCurrentChange">
-            <template #toolbar>
-                <ToolBar :columns="radioTableConfig.columns" />
+            <template #toolbar-left>
+                <el-button type="primary">添加数据</el-button>
             </template>
         </CrudTable>
     </div>

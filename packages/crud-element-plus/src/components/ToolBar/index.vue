@@ -1,3 +1,60 @@
+<script setup lang="ts">
+    import { computed, inject, ref, nextTick } from 'vue'
+    import { VueDraggableNext } from 'vue-draggable-next'
+    import { Refresh, FullScreen, Setting, ArrowUp, ArrowDown, Rank } from '@element-plus/icons-vue'
+    import { TableColumn } from '../CrudTable/props'
+    import type { CrudToolType } from '../../types'
+
+    const emits = defineEmits<{
+        (event: 'update:columns', columns: TableColumn[]): void
+    }>()
+    const columns = defineModel('columns', {
+        type: Array as () => TableColumn[],
+        default: () => []
+    })
+
+    const tool = inject<CrudToolType>('crud-table-to-tool')
+
+    const resetColumns: TableColumn[] = JSON.parse(JSON.stringify(columns.value))
+    const columnsDraft = ref<TableColumn[]>(columns.value.filter(col => !col.type))
+
+    const onColumnVisibilityChange = () => {
+        emits('update:columns', columnsDraft.value)
+    }
+
+    const moveColumn = (fromIndex: number, toIndex: number) => {
+        const column = columnsDraft.value.splice(fromIndex, 1)[0]
+        columnsDraft.value.splice(toIndex, 0, column)
+        emits('update:columns', columnsDraft.value)
+    }
+
+    const onReset = () => {
+        columnsDraft.value = resetColumns.filter(col => !col.type)
+        emits('update:columns', resetColumns)
+    }
+
+    const toggleFullscreen = () => {
+        nextTick(() => {
+            const element = tool?.tableRef.value.$el
+            if (element) {
+                const elementAny = element as any
+                if (element.requestFullscreen) {
+                    element.requestFullscreen()
+                } else if (elementAny.mozRequestFullScreen) {
+                    /* Firefox */
+                    elementAny.mozRequestFullScreen()
+                } else if (elementAny.webkitRequestFullscreen) {
+                    /* Chrome, Safari and Opera */
+                    elementAny.webkitRequestFullscreen()
+                } else if (elementAny.msRequestFullscreen) {
+                    /* IE/Edge */
+                    elementAny.msRequestFullscreen()
+                }
+            }
+        })
+    }
+</script>
+
 <template>
     <div class="toolbar">
         <div class="left">
@@ -5,7 +62,7 @@
         </div>
         <div class="right">
             <el-button :icon="Refresh" circle></el-button>
-            <el-button :icon="FullScreen" circle></el-button>
+            <el-button :icon="FullScreen" circle @click="toggleFullscreen"></el-button>
 
             <el-popover placement="bottom" width="350" trigger="click">
                 <template #reference>
@@ -43,51 +100,11 @@
 
                 <div class="settings-footer">
                     <el-button size="small" @click="onReset">重置</el-button>
-                    <!-- <el-button size="small" type="primary" @click="onApply">应用</el-button> -->
                 </div>
             </el-popover>
-            <!-- 
-            <el-button icon="FullScreen" @click="tool.toggleFullscreen">
-                {{ tool.isFullscreen ? '退出全屏' : '全屏' }}
-            </el-button> -->
         </div>
     </div>
 </template>
-
-<script setup lang="ts">
-    import { computed, inject, ref } from 'vue'
-    import { VueDraggableNext } from 'vue-draggable-next'
-    import { Refresh, FullScreen, Setting, ArrowUp, ArrowDown, Rank } from '@element-plus/icons-vue'
-    import { TableColumn } from '../CrudTable/props'
-    import type { CrudToolType } from '../../types'
-
-    const { columns } = defineProps<{ columns: TableColumn[] }>()
-    const columnsDraft = ref<TableColumn[]>(
-        columns.filter(col => {
-            return !col.type
-        })
-    )
-
-    console.log(columnsDraft)
-
-    const onColumnVisibilityChange = () => {
-        console.log('Column visibility changed')
-    }
-
-    const moveColumn = (fromIndex: number, toIndex: number) => {
-        const column = columnsDraft.value.splice(fromIndex, 1)[0]
-        columnsDraft.value.splice(toIndex, 0, column)
-    }
-
-    const onReset = () => {
-        // columnsDraft.value = columns.filter(col => !col.type)
-    }
-
-    const onApply = () => {
-        // 这里可以触发一个事件或者调用一个方法来应用更改
-        console.log('Applied changes:', columnsDraft.value)
-    }
-</script>
 
 <style scoped>
     .toolbar {

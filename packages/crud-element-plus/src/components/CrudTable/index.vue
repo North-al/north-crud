@@ -1,29 +1,12 @@
 <script setup lang="ts" generic="T">
     import { computed, provide, ref, useAttrs } from 'vue'
-    import { NorthTableProps, TableColumn } from './props'
-    import { useTable } from '../../hooks/useTable'
+    import { NorthTableProps } from './props'
     import ToolBar from '../ToolBar/index.vue'
     import type { CrudToolType } from '../../types'
 
-    defineOptions({
-        name: 'CrudTable'
-    })
+    defineOptions({ name: 'CrudTable' })
 
     const attrs = useAttrs()
-    const emits = defineEmits()
-    const props = defineProps<NorthTableProps<T>>()
-    // const slots = defineSlots()
-    const tableRef = ref()
-    // const table = useTable<T>({ columns: props.columns })
-    // console.log(table)
-
-    // 注册给tool bar一些必要的数据
-    // const crudTool: CrudToolType = {
-    //     columns: props.columns,
-    //     refresh: table.refresh
-    // }
-
-    // provide<CrudToolType>('crud-tool', crudTool)
 
     // TODO:【目前来说有点多此一举的一步, 后续用不到删了】
     const tableAttrs = computed(() => {
@@ -35,18 +18,26 @@
         }
     })
 
-    const visibleColumns = computed(() => props.columns.filter(col => col.visible !== false))
+    const emits = defineEmits()
+    const props = defineProps<NorthTableProps<T>>()
+    const tableRef = ref()
+    const proxyColumns = ref(props.columns.map(col => ({ visible: true, ...col })))
+    const visibleColumns = computed(() => proxyColumns.value.filter(col => col.visible !== false))
 
-    defineExpose({
+    defineExpose({ tableRef })
+
+    provide<CrudToolType>('crud-table-to-tool', {
         tableRef
-        // tableHook: table
     })
 </script>
 
 <template>
     <div class="north-crud-table">
-        <!-- <slot name="toolbar" /> -->
-        <ToolBar :columns="columns" />
+        <ToolBar v-model:columns="proxyColumns">
+            <template #left>
+                <slot name="toolbar-left"></slot>
+            </template>
+        </ToolBar>
 
         <el-table
             v-loading="loading"

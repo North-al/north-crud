@@ -1,8 +1,12 @@
 // 表格列配置接口
 
 import { TableColumn } from '../components/CrudTable/props'
+import { ElTable } from 'element-plus'
+import { Ref } from 'vue'
 
-export type CrudToolType = { columns: TableColumn[]; refresh: (fetchData: () => Promise<any[]>) => Promise<void> }
+export interface CrudToolType {
+    tableRef: Ref<InstanceType<typeof ElTable>>
+}
 
 // 表格配置接口
 export interface TableConfig {
