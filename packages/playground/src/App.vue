@@ -17,7 +17,7 @@
     import prodBasicTable from './components/prod/basicTable.vue'
 
     // const activeName = ref('first')
-    const activeName = ref('dev')
+    const activeName = ref('prod')
 
     const handleClick = (tab: TabsPaneContext, event: Event) => {
         console.log(tab, event)

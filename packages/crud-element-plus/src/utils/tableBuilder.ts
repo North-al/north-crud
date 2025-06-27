@@ -137,7 +137,7 @@ export class TableColumnBuilder {
      * 设置隐藏
      */
     hidden(hidden: boolean = true): this {
-        this.column.hidden = hidden
+        // this.column.hidden = hidden
         return this
     }
 

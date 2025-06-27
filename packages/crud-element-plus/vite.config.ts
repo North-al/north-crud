@@ -31,7 +31,7 @@ export default defineConfig({
         target: 'es2020',
         // 外部化依赖
         rollupOptions: {
-            external: ['vue', 'element-plus'],
+            external: ['vue', 'element-plus', '@element-plus/icons-vue', 'vue-draggable-next'],
             output: {
                 // 统一的资源文件命名规则
                 assetFileNames: chunkInfo => {
@@ -43,7 +43,9 @@ export default defineConfig({
                 },
                 globals: {
                     vue: 'Vue',
-                    'element-plus': 'ElementPlus'
+                    'element-plus': 'ElementPlus',
+                    '@element-plus/icons-vue': 'ElementPlusIconsVue',
+                    'vue-draggable-next': 'VueDraggableNext'
                 }
             }
         }

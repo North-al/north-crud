@@ -103,6 +103,9 @@
             :columns="radioTableConfig.columns"
             highlight-current-row
             @current-change="handleCurrentChange">
+            <!-- <template #toolbar-left>
+                <el-button type="primary">添加数据</el-button>
+            </template> -->
         </CrudTable>
     </div>
 </template>

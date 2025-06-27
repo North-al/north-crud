@@ -1,7 +1,7 @@
 {
     "name": "@northal/crud-element-plus",
-    "version": "1.0.2",
-    "description": "North CRUD Element Plus 组件包",
+    "version": "1.0.3",
+    "description": "CRUD Element Plus 组件包",
     "main": "dist/index.js",
     "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
@@ -44,10 +44,6 @@
         "vue-draggable-next": "^2.2.1"
     },
     "devDependencies": {
-        "@element-plus/icons-vue": "^2.3.1",
-        "@types/node": "^24.0.3",
-        "element-plus": "^2.10.2",
-        "vue": "^3.5.17",
-        "vue-draggable-next": "^2.2.1"
+        "@types/node": "^24.0.3"
     }
 }
