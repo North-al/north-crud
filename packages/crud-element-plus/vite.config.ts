@@ -1,8 +1,11 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import dts from 'vite-plugin-dts'
-
 import { resolve } from 'path'
+import { readFileSync } from 'fs'
+
+const pkg = JSON.parse(readFileSync(resolve(__dirname, 'package.json'), 'utf-8'))
+
 export default defineConfig({
     // 路径别名
     resolve: {
@@ -31,7 +34,8 @@ export default defineConfig({
         target: 'es2020',
         // 外部化依赖
         rollupOptions: {
-            external: ['vue', 'element-plus', '@element-plus/icons-vue', 'vue-draggable-next'],
+            // external: ['vue', 'element-plus', '@element-plus/icons-vue', 'vue-draggable-next'],
+            external: pkg.peerDependencies ? Object.keys(pkg.peerDependencies) : [],
             output: {
                 // 统一的资源文件命名规则
                 assetFileNames: chunkInfo => {
@@ -44,8 +48,8 @@ export default defineConfig({
                 globals: {
                     vue: 'Vue',
                     'element-plus': 'ElementPlus',
-                    '@element-plus/icons-vue': 'ElementPlusIconsVue',
-                    'vue-draggable-next': 'VueDraggableNext'
+                    '@element-plus/icons-vue': 'ElementPlusIconsVue'
+                    // 'vue-draggable-next': 'VueDraggableNext'
                 }
             }
         }

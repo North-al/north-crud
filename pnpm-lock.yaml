@@ -85,8 +85,8 @@ importers:
         specifier: ^2.3.0
         version: 2.3.1(vue@3.5.17(typescript@5.8.3))
       '@northal/crud-element-plus':
-        specifier: ^1.0.3
-        version: 1.0.3(@element-plus/icons-vue@2.3.1(vue@3.5.17(typescript@5.8.3)))(element-plus@2.10.2(vue@3.5.17(typescript@5.8.3)))(vue-draggable-next@2.2.1(sortablejs@1.14.0)(vue@3.5.17(typescript@5.8.3)))(vue@3.5.17(typescript@5.8.3))
+        specifier: ^1.0.5
+        version: 1.0.5(@element-plus/icons-vue@2.3.1(vue@3.5.17(typescript@5.8.3)))(element-plus@2.10.2(vue@3.5.17(typescript@5.8.3)))(sortablejs@1.14.0)(vue@3.5.17(typescript@5.8.3))
       '@types/node':
         specifier: ^24.0.3
         version: 24.0.4
@@ -96,9 +96,6 @@ importers:
       vue:
         specifier: ^3.5.13
         version: 3.5.17(typescript@5.8.3)
-      vue-draggable-next:
-        specifier: ^2.2.1
-        version: 2.2.1(sortablejs@1.14.0)(vue@3.5.17(typescript@5.8.3))
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^5.2.3
@@ -456,13 +453,12 @@ packages:
   '@microsoft/tsdoc@0.15.1':
     resolution: {integrity: sha512-4aErSrCR/On/e5G2hDP0wjooqDdauzEbIq8hIkIe5pXV0rtWJZvdCEKL0ykZxex+IxIwBp0eGeV48hQN07dXtw==}
 
-  '@northal/crud-element-plus@1.0.3':
-    resolution: {integrity: sha512-OANlUfvL+bVm/ZxC9rjmfRPJrfoA+L2GFTCaGLjxs4RyqNHsL057d3O1RRh0umFrGA5rZiN2h8DtK0ix/DC7MA==}
+  '@northal/crud-element-plus@1.0.5':
+    resolution: {integrity: sha512-7etjQTPVE9fuiBOylTA8LXkB1NIt0QAR23dn1GeX/EWGxB1sYn0FC8Go9Oq6hVJejJc80pAZuRKIVzcOgmIbeA==}
     peerDependencies:
       '@element-plus/icons-vue': ^2.3.1
       element-plus: ^2.10.2
       vue: ^3.5.17
-      vue-draggable-next: ^2.2.1
 
   '@rolldown/pluginutils@1.0.0-beta.19':
     resolution: {integrity: sha512-3FL3mnMbPu0muGOCaKAhhFEYmqv9eTfPSJRJmANrCwtgK8VuxpsZDGK+m0LYAGoyO8+0j5uRe4PeyPDK1yA/hA==}
@@ -2402,12 +2398,14 @@ snapshots:
 
   '@microsoft/tsdoc@0.15.1': {}
 
-  '@northal/crud-element-plus@1.0.3(@element-plus/icons-vue@2.3.1(vue@3.5.17(typescript@5.8.3)))(element-plus@2.10.2(vue@3.5.17(typescript@5.8.3)))(vue-draggable-next@2.2.1(sortablejs@1.14.0)(vue@3.5.17(typescript@5.8.3)))(vue@3.5.17(typescript@5.8.3))':
+  '@northal/crud-element-plus@1.0.5(@element-plus/icons-vue@2.3.1(vue@3.5.17(typescript@5.8.3)))(element-plus@2.10.2(vue@3.5.17(typescript@5.8.3)))(sortablejs@1.14.0)(vue@3.5.17(typescript@5.8.3))':
     dependencies:
       '@element-plus/icons-vue': 2.3.1(vue@3.5.17(typescript@5.8.3))
       element-plus: 2.10.2(vue@3.5.17(typescript@5.8.3))
       vue: 3.5.17(typescript@5.8.3)
       vue-draggable-next: 2.2.1(sortablejs@1.14.0)(vue@3.5.17(typescript@5.8.3))
+    transitivePeerDependencies:
+      - sortablejs
 
   '@rolldown/pluginutils@1.0.0-beta.19': {}
 
