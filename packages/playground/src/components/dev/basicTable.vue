@@ -107,6 +107,11 @@
     const handleCurrentChange = (row: any) => {
         ElMessage.info(`当前选中用户：${row.name}`)
     }
+
+    const payload = ref({
+        page: 1,
+        pageSize: 10
+    })
 </script>
 
 <template>
@@ -117,7 +122,10 @@
             :data="tableData"
             :columns="radioTableConfig.columns"
             highlight-current-row
-            @current-change="handleCurrentChange">
+            @current-change="handleCurrentChange"
+            :total="1000"
+            v-model:page="payload.page"
+            v-model:pageSize="payload.pageSize">
             <template #toolbar-left>
                 <el-button type="primary">添加数据</el-button>
             </template>

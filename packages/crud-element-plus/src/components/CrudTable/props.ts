@@ -1,4 +1,4 @@
-import type { TableProps as ElTableProps } from 'element-plus/es/components/table'
+import type { TableProps as ElTableProps, TableColumnCtx } from 'element-plus/es/components/table'
 
 type Position =
     | 'top'
@@ -25,6 +25,13 @@ export interface NorthTableProps<T = any> extends Partial<Omit<ElTableProps<T>, 
     showHeader?: boolean
     emptyText?: string
     loading?: boolean
+    total?: number
+    hasPagination?: boolean
+    pagination?: {
+        pageSizes?: number[]
+        background?: boolean
+        layout?: string
+    }
 }
 
 export interface TableColumn {
@@ -49,9 +56,9 @@ export interface TableColumn {
     /** 是否显示溢出tooltip */
     showOverflowTooltip?: boolean
     /** 自定义渲染函数 */
-    render?: (row: any, column: TableColumn, cellValue: any, index: number) => any
+    render?: (row: any, column: TableColumnCtx<TableColumn>, cellValue: any, index: number) => any
     /** 自定义格式化函数 */
-    formatter?: (row: any, column: TableColumn, cellValue: any, index: number) => string
+    formatter?: (row: any, column: TableColumnCtx<TableColumn>, cellValue: any, index: number) => string
     /** 是否显示 */
     visible?: boolean
 }
