@@ -1,4 +1,4 @@
-<script setup lang="ts" generic="T">
+<script setup lang="tsx" generic="T">
     import { computed, provide, ref, useAttrs } from 'vue'
     import { NorthTableProps } from './props'
     import ToolBar from '../ToolBar/index.vue'
@@ -68,7 +68,15 @@
                     <slot :name="col?.prop" :row="row" />
                 </template>
                 <template v-else-if="col?.render" #default="{ row, column, $index }">
-                    <component :is="col.render(row, column, row[col.prop], $index)" />
+                    <template v-if="Array.isArray(col.render(row, column, row[col.prop], $index))">
+                        <component
+                            v-for="(comp, idx) in col.render(row, column, row[col.prop], $index)"
+                            :is="comp"
+                            :key="idx" />
+                    </template>
+                    <template v-else>
+                        <component :is="col.render(row, column, row[col.prop], $index)" />
+                    </template>
                 </template>
                 <template v-else-if="col?.formatter" #default="{ row, column, $index }">
                     {{ col.formatter(row, column, row[col.prop], $index) }}

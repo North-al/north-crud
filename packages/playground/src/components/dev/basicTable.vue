@@ -1,9 +1,9 @@
 <script setup lang="tsx">
     import CrudTable from '@el/components/CrudTable/index.vue'
-    import ToolBar from '@el/components/ToolBar/index.vue'
-    import { TableConfig } from '@northal/crud-element-plus'
+    import { TableConfig } from '@el/types'
     import { ElMessage } from 'element-plus'
-    import { reactive, ref } from 'vue'
+    import { Edit } from '@element-plus/icons-vue'
+    import { computed, h, reactive, ref } from 'vue'
     const tableData = ref([
         {
             id: 1,
@@ -74,8 +74,16 @@
             {
                 label: '状态',
                 prop: 'status',
-                width: 100,
-                align: 'center'
+                align: 'center',
+                render(row, column, cellValue) {
+                    return [
+                        <>
+                            <el-tag type={cellValue === 1 ? 'success' : 'danger'}>
+                                {cellValue === 1 ? '启用' : '禁用'}
+                            </el-tag>
+                        </>
+                    ]
+                }
             },
             {
                 label: '创建时间',
@@ -87,7 +95,12 @@
                     return <el-tag type='primary'>{cellValue}</el-tag>
                 }
             },
-            { prop: 'action', label: '操作', width: 150, fixed: 'right', align: 'center' }
+            {
+                prop: 'action',
+                label: '操作',
+                fixed: 'right',
+                align: 'center'
+            }
         ]
     })
 

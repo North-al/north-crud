@@ -62,5 +62,5 @@ export interface TableColumnFilter {
     className?: string
     multiple?: boolean
     method?: (value: any, row: any, column: any) => void
-    value: string[]
+    value?: string[]
 }
