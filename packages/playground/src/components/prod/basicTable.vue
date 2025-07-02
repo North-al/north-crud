@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-    import { CrudTable, TableColumn, TableConfig } from '@northal/crud-element-plus'
+    import { CrudTable, TableConfig } from '@northal/crud-element-plus'
     import { ElMessage } from 'element-plus'
     import { reactive, ref } from 'vue'
     const tableData = ref([
