@@ -7,6 +7,9 @@
             <el-tab-pane label="表单示例" name="form">
                 <FormDemo />
             </el-tab-pane>
+            <el-tab-pane label="弹窗示例" name="dialog">
+                <DialogDemo />
+            </el-tab-pane>
             <el-tab-pane label="生产环境" name="prod">
                 <ProdBasicTable />
             </el-tab-pane>

@@ -1,11 +1,15 @@
 import CrudTable from './components/CrudTable/index.vue'
 import CrudForm from './components/CrudForm/index'
+import CrudDialog from './components/CrudDialog/index'
+import CrudFormDialog from './components/CrudFormDialog/index'
 import { TableBuilder, TableColumnBuilder } from './utils/tableBuilder'
 import { FormBuilder, FormFieldBuilder, createForm, createFormField, commonFields } from './utils/formBuilder'
 
 export {
     CrudTable,
     CrudForm,
+    CrudDialog,
+    CrudFormDialog,
     TableBuilder,
     TableColumnBuilder,
     FormBuilder,
@@ -28,3 +32,5 @@ export type {
     FormAction,
     FormLayout
 } from './types/form'
+// 导出弹窗相关类型
+export type { DialogConfig, DialogFormConfig } from './types/dialog'
